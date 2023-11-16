@@ -8,7 +8,7 @@ public abstract class Usuario {
     private final int limiteReservas;
     private int limiteEmprestimo;
     private int tempoEmprestimo;
-    //private boolean passeLivreEmprestimo;
+    private boolean passeLivreEmprestimo;
 
     public Usuario(String codigo, String nome) {
         this.codigo = codigo;
@@ -18,7 +18,7 @@ public abstract class Usuario {
         this.limiteReservas = 3;
         this.limiteEmprestimo = -1;
         this.tempoEmprestimo = 7;
-        //this.passeLivreEmprestimo = false;
+        this.passeLivreEmprestimo = false;
     }
 
     public String getCodigo() {
@@ -59,5 +59,13 @@ public abstract class Usuario {
 
     public void setTempoEmprestimo(int tempoEmprestimo) {
         this.tempoEmprestimo = tempoEmprestimo;
+    }
+
+    public boolean isPasseLivreEmprestimo() {
+        return passeLivreEmprestimo;
+    }
+
+    public void setPasseLivreEmprestimo(boolean passeLivreEmprestimo) {
+        this.passeLivreEmprestimo = passeLivreEmprestimo;
     }
 }

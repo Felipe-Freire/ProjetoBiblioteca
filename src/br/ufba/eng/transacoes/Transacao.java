@@ -1,15 +1,14 @@
 package br.ufba.eng.transacoes;
 
-import br.ufba.eng.livro.Livro;
+import br.ufba.eng.livro.IDados;
 import br.ufba.eng.usuario.Usuario;
 
-import java.time.LocalDate;
 
-public class Transacao {
+public abstract class Transacao {
     private Usuario usuario;
-    private Livro livro;
+    private IDados livro;
 
-    public Transacao(Usuario usuario, Livro livro) {
+    public Transacao(Usuario usuario, IDados livro) {
         this.usuario = usuario;
         this.livro = livro;
     }
@@ -18,7 +17,7 @@ public class Transacao {
         return usuario;
     }
 
-    public Livro getLivro() {
+    public IDados getLivro() {
         return livro;
     }
 }
