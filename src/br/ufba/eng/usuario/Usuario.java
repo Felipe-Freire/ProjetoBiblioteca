@@ -1,5 +1,7 @@
 package br.ufba.eng.usuario;
 
+import br.ufba.eng.verificacao.estrategia.IEstrategiaEmprestimo;
+
 public abstract class Usuario {
     private final String codigo;
     private final String nome;
@@ -9,6 +11,7 @@ public abstract class Usuario {
     private int limiteEmprestimo;
     private int tempoEmprestimo;
     private boolean passeLivreEmprestimo;
+    protected IEstrategiaEmprestimo estrategiaEmprestimo;
 
     public Usuario(String codigo, String nome) {
         this.codigo = codigo;
@@ -67,5 +70,13 @@ public abstract class Usuario {
 
     public void setPasseLivreEmprestimo(boolean passeLivreEmprestimo) {
         this.passeLivreEmprestimo = passeLivreEmprestimo;
+    }
+
+    public IEstrategiaEmprestimo getEstrategiaEmprestimo() {
+        return estrategiaEmprestimo;
+    }
+
+    public void setEstrategiaEmprestimo(IEstrategiaEmprestimo estrategiaEmprestimo) {
+        this.estrategiaEmprestimo = estrategiaEmprestimo;
     }
 }

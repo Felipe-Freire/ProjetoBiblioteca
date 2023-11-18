@@ -1,14 +1,14 @@
 package br.ufba.eng.transacoes;
 
-import br.ufba.eng.livro.IDados;
+import br.ufba.eng.itens.ILivro;
 import br.ufba.eng.usuario.Usuario;
 
 
 public abstract class Transacao {
     private Usuario usuario;
-    private IDados livro;
+    private ILivro livro;
 
-    public Transacao(Usuario usuario, IDados livro) {
+    public Transacao(Usuario usuario, ILivro livro) {
         this.usuario = usuario;
         this.livro = livro;
     }
@@ -17,7 +17,7 @@ public abstract class Transacao {
         return usuario;
     }
 
-    public IDados getLivro() {
+    public ILivro getLivro() {
         return livro;
     }
 }

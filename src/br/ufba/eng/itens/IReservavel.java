@@ -1,4 +1,4 @@
-package br.ufba.eng.livro;
+package br.ufba.eng.itens;
 
 public interface IReservavel {
     public void reservar();
