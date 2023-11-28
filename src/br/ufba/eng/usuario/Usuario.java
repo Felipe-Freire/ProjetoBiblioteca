@@ -1,6 +1,6 @@
 package br.ufba.eng.usuario;
 
-import br.ufba.eng.verificacao.estrategia.IEstrategiaEmprestimo;
+import br.ufba.eng.verificacao.IEstrategiaEmprestimo;
 
 public abstract class Usuario {
     private final String codigo;

@@ -1,6 +1,6 @@
 package br.ufba.eng.usuario;
 
-import br.ufba.eng.verificacao.estrategia.EstrategiaEmprestimoAluno;
+import br.ufba.eng.verificacao.EstrategiaEmprestimoAluno;
 
 public class AlunoGraduacao extends Usuario{
     public AlunoGraduacao(String codigo, String nome) {

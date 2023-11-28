@@ -1,4 +1,4 @@
-package br.ufba.eng.verificacao.estrategia;
+package br.ufba.eng.verificacao;
 
 import br.ufba.eng.itens.ILivro;
 import br.ufba.eng.usuario.Usuario;

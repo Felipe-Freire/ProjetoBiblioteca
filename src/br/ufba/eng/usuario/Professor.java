@@ -1,7 +1,7 @@
 package br.ufba.eng.usuario;
 
 import br.ufba.eng.itens.IObservavel;
-import br.ufba.eng.verificacao.estrategia.EstrategiaEmprestimoProfessor;
+import br.ufba.eng.verificacao.EstrategiaEmprestimoProfessor;
 
 public class Professor extends Usuario implements IObservador{
     private int notificacoes;
@@ -27,4 +27,6 @@ public class Professor extends Usuario implements IObservador{
     public void notificaObservador(IObservavel observavel) {
         notificacoes++;
     }
+
+
 }

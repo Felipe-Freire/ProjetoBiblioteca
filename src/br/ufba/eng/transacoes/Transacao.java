@@ -5,8 +5,8 @@ import br.ufba.eng.usuario.Usuario;
 
 
 public abstract class Transacao {
-    private Usuario usuario;
-    private ILivro livro;
+    private final Usuario usuario;
+    private final ILivro livro;
 
     public Transacao(Usuario usuario, ILivro livro) {
         this.usuario = usuario;
