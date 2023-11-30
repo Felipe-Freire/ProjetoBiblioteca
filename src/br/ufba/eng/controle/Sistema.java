@@ -1,6 +1,6 @@
 package br.ufba.eng.controle;
 
-import br.ufba.eng.itens.ILivro;
+import br.ufba.eng.itens.Livro;
 import br.ufba.eng.transacoes.Emprestimo;
 import br.ufba.eng.transacoes.Reserva;
 import br.ufba.eng.usuario.Usuario;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Sistema implements ISistema {
-    private final HashMap<String, ILivro> livros = new HashMap<>();
+    private final HashMap<String, Livro> livros = new HashMap<>();
     private final HashMap<String, Usuario> usuarios = new HashMap<>();
     private final ArrayList<Emprestimo> emprestimos = new ArrayList<>();
     private final ArrayList<Reserva> reservas = new ArrayList<>();
@@ -26,65 +26,84 @@ public class Sistema implements ISistema {
     }
 
     @Override
-    public void adicionarUsuario(Usuario usuario) {
+    public void adicionarObservador(Usuario usuario, Livro livro) {
+
+    }
+
+    @Override
+    public void consultarLivro(Livro livro) {
+
+    }
+
+    @Override
+    public void consultarUsuario(Usuario usuario) {
+
+    }
+
+    @Override
+    public void devolverLivro(Usuario usuario, Livro livro) {
+
+    }
+
+    @Override
+    public void emprestarLivro(Usuario usuario, Livro livro) {
+
+    }
+
+    @Override
+    public void reservarLivro(Usuario usuario, Livro livro) {
+
+    }
+
+    protected void adicionarUsuario(Usuario usuario) {
         usuarios.put(usuario.getCodigo(), usuario);
     }
 
-    @Override
-    public Usuario pegarUsuarioPorCodigo(String codigo) {
+    protected Usuario pegarUsuarioPorCodigo(String codigo) {
         return usuarios.get(codigo);
     }
 
-    @Override
-    public void adicionarItem(ILivro livro) {
+    protected void adicionarLivro(Livro livro) {
         livros.put(livro.getCodigo(), livro);
     }
 
-    @Override
-    public ILivro pegarLivroPorCodigo(String codigo) {
+    protected Livro pegarLivroPorCodigo(String codigo) {
         return livros.get(codigo);
     }
 
-    @Override
-    public Emprestimo adicionaEmprestimo(Usuario usuario, ILivro livro) {
+    protected Emprestimo adicionaEmprestimo(Usuario usuario, Livro livro) {
         Emprestimo emprestimo = new Emprestimo(usuario, livro);
         emprestimos.add(emprestimo);
         return emprestimo;
     }
 
-    @Override
-    public void removeEmprestimo(Usuario usuario, ILivro livro) {
+    protected void removeEmprestimo(Usuario usuario, Livro livro) {
 
     }
 
-    @Override
-    public Reserva adicionaReserva(Usuario usuario, ILivro livro) {
+    protected Reserva adicionaReserva(Usuario usuario, Livro livro) {
         Reserva reserva = new Reserva(usuario, livro);
         reservas.add(reserva);
         return reserva;
     }
 
-    @Override
-    public ArrayList<Emprestimo> pegaEmprestimosCodigoLivro(String id) {
-        ArrayList<Emprestimo> emprestimosDoILivro = new ArrayList<>();
+    protected ArrayList<Emprestimo> pegaEmprestimosCodigoLivro(String id) {
+        ArrayList<Emprestimo> emprestimosDoLivro = new ArrayList<>();
         for (Emprestimo emprestimo : emprestimos) {
             if (emprestimo.getLivro().getCodigo().equals(id)) {
-                emprestimosDoILivro.add(emprestimo);
+                emprestimosDoLivro.add(emprestimo);
             }
         }
-        return emprestimosDoILivro;
+        return emprestimosDoLivro;
     }
 
-    @Override
-    public ArrayList<Reserva> pegaReservaCodigoLivro(String id) {
-        ArrayList<Reserva> reservasDoILivro = new ArrayList<>();
+    protected ArrayList<Reserva> pegaReservaCodigoLivro(String id) {
+        ArrayList<Reserva> reservasDoLivro = new ArrayList<>();
         for (Reserva reserva : reservas) {
             if (reserva.getLivro().getCodigo().equals(id)) {
-                reservasDoILivro.add(reserva);
+                reservasDoLivro.add(reserva);
             }
         }
-        return reservasDoILivro;
+        return reservasDoLivro;
     }
-
-
 }

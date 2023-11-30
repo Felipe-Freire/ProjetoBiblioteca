@@ -5,7 +5,7 @@ import br.ufba.eng.usuario.IObservador;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Livro implements ILivro {
+public class Livro implements IObservavel, IReservavel, IEmprestavel {
     private final String codigo;
     private final String titulo;
     private final int anoPublicacao;
@@ -27,7 +27,7 @@ public class Livro implements ILivro {
         this.quantidadeDisponivel = quantidadeTotal;
         this.quantidadeTotal = quantidadeTotal;
         this.quantidadeReservas = 0;
-        this.observadores = new ArrayList<>();
+        this.observadores = new ArrayList<IObservador>();
     }
 
     public String getCodigo() {
@@ -70,14 +70,17 @@ public class Livro implements ILivro {
         return edicao;
     }
 
+    @Override
     public void setQuantidadeReservas(int quantidadeReservas) {
         this.quantidadeReservas = quantidadeReservas;
     }
 
+    @Override
     public List<IObservador> getObservadores() {
         return observadores;
     }
 
+    @Override
     public void setObservadores(List<IObservador> observadores) {
         this.observadores = observadores;
     }

@@ -1,6 +1,6 @@
 package br.ufba.eng.controle;
 
-import br.ufba.eng.itens.ILivro;
+import br.ufba.eng.itens.Livro;
 import br.ufba.eng.transacoes.Emprestimo;
 import br.ufba.eng.transacoes.Reserva;
 import br.ufba.eng.usuario.Usuario;
@@ -8,22 +8,17 @@ import br.ufba.eng.usuario.Usuario;
 import java.util.ArrayList;
 
 public interface ISistema {
-    public void adicionarUsuario(Usuario usuario);
 
-    public Usuario pegarUsuarioPorCodigo(String id);
+    public void adicionarObservador(Usuario usuario, Livro livro);
 
-    public void adicionarItem(ILivro item);
+    public void consultarLivro(Livro livro);
 
-    public ILivro pegarLivroPorCodigo(String id);
+    public void consultarUsuario(Usuario usuario);
 
-    public Emprestimo adicionaEmprestimo(Usuario usuario, ILivro item);
+    public void devolverLivro(Usuario usuario, Livro livro);
 
-    public void removeEmprestimo(Usuario usuario, ILivro item);
+    public void emprestarLivro(Usuario usuario, Livro livro);
 
-    public Reserva adicionaReserva(Usuario usuario, ILivro item);
-
-    public ArrayList<Emprestimo> pegaEmprestimosCodigoLivro(String id);
-
-    public ArrayList<Reserva> pegaReservaCodigoLivro(String id);
+    public void reservarLivro(Usuario usuario, Livro livro);
 
 }
