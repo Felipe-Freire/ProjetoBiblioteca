@@ -8,8 +8,6 @@ public class ComandoConsultarProfessor implements IComando{
     public void executar(String... parametros) {
         String codigoUsuario = parametros[0];
 
-        Usuario usuario = Sistema.getInstance().pegarUsuarioPorCodigo(codigoUsuario);
-
-        Sistema.getInstance().consultarProfessor((IObservador) usuario);
+        Sistema.getInstance().consultarProfessor(codigoUsuario);
     }
 }

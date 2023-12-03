@@ -50,19 +50,11 @@ public class Verificador {
         return false;
     }
 
-    public static boolean verificaLiberdadeDeEmprestimo(Usuario usuario, ArrayList<Emprestimo> emprestimos) {
-        int quantidade = 0;
+    public static boolean verificaLiberdadeDeEmprestimo(Usuario usuario) {
+        return usuario.getLimiteEmprestimo() > usuario.getQuantLivrosEmprestados();
+    }
 
-        for (Emprestimo emprestimo : emprestimos) {
-            if (emprestimo.getUsuario().equals(usuario) ) {
-                quantidade++;
-            }
-        }
-
-        if (quantidade >= usuario.getLimiteEmprestimo()){
-            return false;
-        }
-
-        return true;
+    public static boolean verificaLiberdadeDeReserva(Usuario usuario) {
+        return usuario.getLimiteReservas() > usuario.getQuantLivrosReservados();
     }
 }

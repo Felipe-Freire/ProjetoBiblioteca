@@ -36,16 +36,28 @@ public abstract class Usuario {
         return quantLivrosReservados;
     }
 
-    public void setQuantLivrosReservados(int quantLivrosReservados) {
-        this.quantLivrosReservados = quantLivrosReservados;
+    public int getLimiteReservas() {
+        return limiteReservas;
+    }
+
+    public void removeReserva() {
+        this.quantLivrosReservados--;
+    }
+
+    public void reservar() {
+        this.quantLivrosReservados++;
     }
 
     public int getQuantLivrosEmprestados() {
         return quantLivrosEmprestados;
     }
 
-    public void setQuantLivrosEmprestados(int quantLivrosEmprestados) {
-        this.quantLivrosEmprestados = quantLivrosEmprestados;
+    public void removeEmprestimo() {
+        this.quantLivrosEmprestados--;
+    }
+
+    public void emprestar() {
+        this.quantLivrosEmprestados++;
     }
 
     public int getLimiteEmprestimo() {

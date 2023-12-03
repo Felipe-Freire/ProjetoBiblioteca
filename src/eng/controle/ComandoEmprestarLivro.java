@@ -10,11 +10,6 @@ public class ComandoEmprestarLivro implements IComando{
         String codigoUsuario = parametros[0];
         String codigoLivro = parametros[0];
 
-        Usuario usuario = Sistema.getInstance().pegarUsuarioPorCodigo(codigoUsuario);
-        Livro livro = Sistema.getInstance().pegarLivroPorCodigo(codigoLivro);
-
-        if (Verificador.verificaUsuarioELivro(usuario, livro)){
-            Sistema.getInstance().emprestarLivro(usuario, livro);
-        }
+        Sistema.getInstance().emprestarLivro(codigoUsuario, codigoLivro);
     }
 }

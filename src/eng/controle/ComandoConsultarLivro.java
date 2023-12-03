@@ -7,8 +7,6 @@ public class ComandoConsultarLivro implements IComando{
     public void executar(String... parametros) {
         String codigoLivro = parametros[0];
 
-        Livro livro = Sistema.getInstance().pegarLivroPorCodigo(codigoLivro);
-
-        Sistema.getInstance().consultarLivro(livro);
+        Sistema.getInstance().consultarLivro(codigoLivro);
     }
 }

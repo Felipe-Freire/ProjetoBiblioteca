@@ -1,8 +1,6 @@
 package eng.controle;
 
-import eng.itens.Livro;
-import eng.usuario.Usuario;
-import eng.verificacao.Verificador;
+import eng.exceptions.ErroDeNegocio;
 
 public class ComandoReservarLivro implements IComando{
     @Override
@@ -10,11 +8,10 @@ public class ComandoReservarLivro implements IComando{
         String codigoUsuario = parametros[0];
         String codigoLivro = parametros[0];
 
-        Usuario usuario = Sistema.getInstance().pegarUsuarioPorCodigo(codigoUsuario);
-        Livro livro = Sistema.getInstance().pegarLivroPorCodigo(codigoLivro);
-
-        if (Verificador.verificaUsuarioELivro(usuario, livro)){
-            Sistema.getInstance().reservarLivro(usuario, livro);
+        try {
+            Sistema.getInstance().reservarLivro(codigoUsuario, codigoLivro);
+        } catch (ErroDeNegocio e) {
+            System.out.println(e.getMessage());
         }
     }
 }

@@ -1,6 +1,6 @@
 package eng.controle;
 
-public class CarregaDados {
+public class CarregarDados {
     public static void carregarDados() {
         Sistema sistema = Sistema.getInstance();
     }

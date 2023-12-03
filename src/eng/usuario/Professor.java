@@ -28,5 +28,10 @@ public class Professor extends Usuario implements IObservador{
         notificacoes++;
     }
 
+    @Override
+    public int getNotificacoes() {
+        return notificacoes;
+    }
+
 
 }

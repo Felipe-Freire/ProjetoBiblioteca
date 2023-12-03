@@ -1,8 +1,10 @@
 package eng.itens;
 
+import eng.transacoes.Emprestimo;
 import eng.usuario.IObservador;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Livro implements IObservavel, IReservavel, IEmprestavel {
@@ -16,6 +18,7 @@ public class Livro implements IObservavel, IReservavel, IEmprestavel {
     private final int edicao;
     private int quantidadeReservas;
     private List<IObservador> observadores;
+    private HashMap<String, Emprestimo> exemplares;
 
     public Livro(String codigo, String titulo, String editora, ArrayList<String> autores, int edicao, int anoPublicacao, int quantidadeTotal) {
         this.codigo = codigo;
@@ -28,6 +31,7 @@ public class Livro implements IObservavel, IReservavel, IEmprestavel {
         this.quantidadeTotal = quantidadeTotal;
         this.quantidadeReservas = 0;
         this.observadores = new ArrayList<IObservador>();
+        this.exemplares = new HashMap<>();
     }
 
     public String getCodigo() {
@@ -105,6 +109,21 @@ public class Livro implements IObservavel, IReservavel, IEmprestavel {
         return quantidadeReservas;
     }
 
+    public HashMap<String, Emprestimo> getExemplares() {
+        return this.exemplares;
+    }
+
+    public void adicionarExemplar(String codigo) {
+        // Verifica se o exemplar já existe no HashMap
+        if (!this.exemplares.containsKey(codigo)) {
+            // Se não existir, adiciona o exemplar com um valor inicial null
+            this.exemplares.put(codigo, null);
+            System.out.println("Exemplar adicionado com sucesso: " + codigo);
+        } else {
+            System.out.println("Exemplar já existe: " + codigo);
+        }
+    }
+
     @Override
     public void adicionarObservador(IObservador observador) {
         observadores.add(observador);
@@ -123,18 +142,12 @@ public class Livro implements IObservavel, IReservavel, IEmprestavel {
     }
 
     @Override
-    public boolean realizaEmprestimo() {
-        if (getQuantidadeTotal() > 0) {
-            setQuantidadeTotal(getQuantidadeTotal() - 1);
-            return true;
-        }
-        return false;
+    public void realizaEmprestimo() {
+        setQuantidadeTotal(getQuantidadeTotal() - 1);
     }
 
     @Override
     public void removerEmprestimo() {
-        if (getQuantidadeDisponivel() < getQuantidadeTotal()) {
-            setQuantidadeDisponivel(getQuantidadeDisponivel() + 1);
-        }
+        setQuantidadeDisponivel(getQuantidadeDisponivel() + 1);
     }
 }
