@@ -8,6 +8,7 @@ import eng.usuario.IObservador;
 import eng.usuario.Usuario;
 import eng.verificacao.Verificador;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,14 +31,20 @@ public class Sistema {
         return instance;
     }
 
-    public void adicionarObservador(String codigoUsuario, String codigoLivro) {
+    public void adicionarObservador(String codigoUsuario, String codigoLivro) throws ErroDeNegocio{
         Usuario usuario = pegarUsuarioPorCodigo(codigoUsuario);
         Livro livro = pegarLivroPorCodigo(codigoLivro);
 
-        livro.adicionarObservador((IObservador) usuario);
+        if (usuario instanceof IObservador) {
+            livro.adicionarObservador((IObservador) usuario);
+        } else {
+            // Trate o caso em que o usuário não implementa a interface IObservador
+            throw new ErroDeNegocio("O usuário não pode ser observador.");
+        }
+
     }
 
-    public void consultarLivro(String codigoLivro) {
+    public void consultarLivro(String codigoLivro) throws ErroDeNegocio {
         Livro livro = pegarLivroPorCodigo(codigoLivro);
 
         if (livro != null) {
@@ -75,7 +82,7 @@ public class Sistema {
                 }
             }
         } else {
-            System.out.println("Livro não encontrado.");
+            throw new ErroDeNegocio("Livro não encontrado.");
         }
     }
 
@@ -86,7 +93,7 @@ public class Sistema {
             System.out.println("Lista de Empréstimos do Usuário:");
             for (Emprestimo emprestimo : pegaEmprestimosPorUsuario(usuario)) {
                 System.out.println("Título do Livro: " + emprestimo.getLivro().getTitulo());
-                System.out.println("Data do Empréstimo: " + emprestimo.getDataEmprestimo());
+                System.out.println("Data do Empréstimo: " + emprestimo.getDataAlugado());
                 System.out.println("Status do Empréstimo: " + (emprestimo.isFinalizado() ? "Finalizado" : "Em Curso"));
 
                 if (emprestimo.isFinalizado()) {
@@ -95,9 +102,9 @@ public class Sistema {
             }
 
             System.out.println("Lista de Reservas do Usuário:");
-            for (Reserva reserva : usuario.getReservas()) {
+            for (Reserva reserva : pegaReservasPorUsuario(usuario)) {
                 System.out.println("Título do Livro Reservado: " + reserva.getLivro().getTitulo());
-                System.out.println("Data da Solicitação da Reserva: " + reserva.getDataSolicitacao());
+                System.out.println("Data da Solicitação da Reserva: " + reserva.getDataReserva());
             }
         } else {
             System.out.println("Usuário não encontrado.");
@@ -178,7 +185,10 @@ public class Sistema {
     }
 
     public void sairSistema() {
+        System.out.println("Saindo do sistema...");
 
+        // Encerre a execução do programa
+        System.exit(0);
     }
 
     protected void adicionarUsuario(Usuario usuario) {
@@ -200,13 +210,14 @@ public class Sistema {
     private void adicionaEmprestimo(Usuario usuario, Livro livro) {
         Emprestimo emprestimo = new Emprestimo(usuario, livro);
         this.emprestimos.add(emprestimo);
-        livro.realizaEmprestimo();
+        livro.realizaEmprestimo(emprestimo);
         usuario.emprestar();
     }
 
     private void removeEmprestimo(Emprestimo emprestimo) {
-        this.emprestimos.remove(emprestimo);
-        emprestimo.getLivro().removerEmprestimo();
+        emprestimo.setFinalizado(true);
+        emprestimo.setDataEntregue(LocalDate.now());
+        emprestimo.getLivro().removerEmprestimo(emprestimo);
         emprestimo.getUsuario().removeEmprestimo();
     }
 
@@ -246,7 +257,7 @@ public class Sistema {
     private ArrayList<Emprestimo> pegaEmprestimosPorUsuario(Usuario usuario) {
         ArrayList<Emprestimo> emprestimosDoLivro = new ArrayList<>();
         for (Emprestimo emprestimo : this.emprestimos) {
-            if (emprestimo.getLivro().getCodigo().equals(usuario.getCodigo())) {
+            if (emprestimo.getUsuario().getCodigo().equals(usuario.getCodigo())) {
                 emprestimosDoLivro.add(emprestimo);
             }
         }
@@ -256,7 +267,7 @@ public class Sistema {
     private ArrayList<Reserva> pegaReservasPorUsuario(Usuario usuario) {
         ArrayList<Reserva> reservasDoLivro = new ArrayList<>();
         for (Reserva reserva : this.reservas) {
-            if (reserva.getLivro().getCodigo().equals(usuario.getCodigo())) {
+            if (reserva.getUsuario().getCodigo().equals(usuario.getCodigo())) {
                 reservasDoLivro.add(reserva);
             }
         }

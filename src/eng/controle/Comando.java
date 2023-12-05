@@ -28,22 +28,25 @@ public class Comando {
         String comando;
         String parametros;
 
-        entrada = teclado.nextLine();
+        while (true) {  // Loop infinito até que seja chamado o comando de saída
+            System.out.print("Digite um comando: ");
+            entrada = teclado.nextLine();
 
-        comando = entrada.substring(0, 3);
-        try {
-            parametros = entrada.substring(4);
-        } catch (Exception e) {
-            parametros = "vazio";
+            comando = entrada.substring(0, 3);
+            try {
+                parametros = entrada.substring(4);
+            } catch (Exception e) {
+                parametros = "vazio";
+            }
+
+            IComando c = comandos.get(comando);
+            if (c != null) {
+                c.executar(parametros);
+                System.out.println();
+            } else {
+                System.out.println("Comando inválido. Tente novamente.");
+            }
         }
 
-        IComando c = comandos.get(comando);
-        c.executar(parametros);
-        System.out.println("");
-
-    }
-
-    public static void imprimirMensagem(String msg){
-        System.out.println(msg);
     }
 }

@@ -6,6 +6,7 @@ import eng.usuario.IObservador;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Livro implements IObservavel, IReservavel, IEmprestavel {
     private final String codigo;
@@ -20,17 +21,17 @@ public class Livro implements IObservavel, IReservavel, IEmprestavel {
     private List<IObservador> observadores;
     private HashMap<String, Emprestimo> exemplares;
 
-    public Livro(String codigo, String titulo, String editora, ArrayList<String> autores, int edicao, int anoPublicacao, int quantidadeTotal) {
+    public Livro(String codigo, String titulo, String editora, ArrayList<String> autores, int edicao, int anoPublicacao) {
         this.codigo = codigo;
         this.titulo = titulo;
         this.editora = editora;
         this.autores = autores;
         this.edicao = edicao;
         this.anoPublicacao = anoPublicacao;
-        this.quantidadeDisponivel = quantidadeTotal;
-        this.quantidadeTotal = quantidadeTotal;
+        this.quantidadeDisponivel = 0;
+        this.quantidadeTotal = 0;
         this.quantidadeReservas = 0;
-        this.observadores = new ArrayList<IObservador>();
+        this.observadores = new ArrayList<>();
         this.exemplares = new HashMap<>();
     }
 
@@ -118,7 +119,8 @@ public class Livro implements IObservavel, IReservavel, IEmprestavel {
         if (!this.exemplares.containsKey(codigo)) {
             // Se não existir, adiciona o exemplar com um valor inicial null
             this.exemplares.put(codigo, null);
-            System.out.println("Exemplar adicionado com sucesso: " + codigo);
+            this.quantidadeTotal++;
+            this.quantidadeDisponivel++;
         } else {
             System.out.println("Exemplar já existe: " + codigo);
         }
@@ -142,12 +144,20 @@ public class Livro implements IObservavel, IReservavel, IEmprestavel {
     }
 
     @Override
-    public void realizaEmprestimo() {
-        setQuantidadeTotal(getQuantidadeTotal() - 1);
+    public void realizaEmprestimo(Emprestimo emprestimo) {
+        setQuantidadeDisponivel(getQuantidadeTotal() - 1);
+        for (Map.Entry<String, Emprestimo> entry : exemplares.entrySet()) {
+            if (entry.getValue() == null) {
+                entry.setValue(emprestimo);
+                return;  // Adicionou o empréstimo, então saia do método
+            }
+        }
     }
 
     @Override
-    public void removerEmprestimo() {
+    public void removerEmprestimo(Emprestimo emprestimo) {
         setQuantidadeDisponivel(getQuantidadeDisponivel() + 1);
+        // Apenas desvincule o primeiro empréstimo encontrado
+        exemplares.entrySet().stream().filter(entry -> entry.getValue() == emprestimo).findFirst().ifPresent(entry -> entry.setValue(null));
     }
 }
