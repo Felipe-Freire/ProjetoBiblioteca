@@ -6,7 +6,7 @@ import eng.usuario.Usuario;
 import java.time.LocalDate;
 
 public class Reserva extends Transacao{
-    private LocalDate dataReserva;
+    private final LocalDate dataReserva;
 
     public Reserva(Usuario usuario, Livro livro) {
         super(usuario, livro);

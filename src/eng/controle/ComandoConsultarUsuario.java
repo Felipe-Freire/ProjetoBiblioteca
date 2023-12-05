@@ -1,7 +1,5 @@
 package eng.controle;
 
-import eng.usuario.Usuario;
-
 public class ComandoConsultarUsuario implements IComando{
     @Override
     public void executar(String... parametros) {

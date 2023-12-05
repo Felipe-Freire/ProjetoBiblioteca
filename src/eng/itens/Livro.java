@@ -43,10 +43,6 @@ public class Livro implements IObservavel, IReservavel, IEmprestavel {
         return titulo;
     }
 
-    public int getAnoPublicacao() {
-        return anoPublicacao;
-    }
-
     public int getQuantidadeDisponivel() {
         return quantidadeDisponivel;
     }
@@ -57,22 +53,6 @@ public class Livro implements IObservavel, IReservavel, IEmprestavel {
 
     public int getQuantidadeTotal() {
         return quantidadeTotal;
-    }
-
-    public void setQuantidadeTotal(int quantidadeTotal) {
-        this.quantidadeTotal = quantidadeTotal;
-    }
-
-    public String getEditora() {
-        return editora;
-    }
-
-    public ArrayList<String> getAutores() {
-        return autores;
-    }
-
-    public int getEdicao() {
-        return edicao;
     }
 
     @Override

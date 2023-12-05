@@ -1,8 +1,6 @@
 package eng.controle;
 
 import eng.exceptions.ErroDeNegocio;
-import eng.itens.Livro;
-import eng.usuario.Usuario;
 
 public class ComandoAdicionarObservador implements IComando{
     @Override

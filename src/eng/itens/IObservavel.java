@@ -5,9 +5,9 @@ import eng.usuario.IObservador;
 import java.util.List;
 
 public interface IObservavel {
-    public void adicionarObservador(IObservador observador);
-    public void removerObservador(IObservador iObservador);
-    public void notificarObservadores();
-    public List<IObservador> getObservadores();
-    public void setObservadores(List<IObservador> observadores);
+    void adicionarObservador(IObservador observador);
+    void removerObservador(IObservador iObservador);
+    void notificarObservadores();
+    List<IObservador> getObservadores();
+    void setObservadores(List<IObservador> observadores);
 }

@@ -1,9 +1,5 @@
 package eng.controle;
 
-import eng.itens.Livro;
-import eng.usuario.Usuario;
-import eng.verificacao.Verificador;
-
 public class ComandoEmprestarLivro implements IComando{
     @Override
     public void executar(String... parametros) {

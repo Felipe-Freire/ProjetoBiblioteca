@@ -6,8 +6,8 @@ import eng.usuario.Usuario;
 import java.time.LocalDate;
 
 public class Emprestimo extends Transacao{
-    private LocalDate dataDevolucao;
-    private LocalDate dataAlugado;
+    private final LocalDate dataDevolucao;
+    private final LocalDate dataAlugado;
     private LocalDate dataEntregue;
     private boolean finalizado;
 

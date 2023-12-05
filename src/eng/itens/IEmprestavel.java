@@ -3,6 +3,6 @@ package eng.itens;
 import eng.transacoes.Emprestimo;
 
 public interface IEmprestavel {
-    public void realizaEmprestimo(Emprestimo emprestimo);
-    public void removerEmprestimo(Emprestimo emprestimo);
+    void realizaEmprestimo(Emprestimo emprestimo);
+    void removerEmprestimo(Emprestimo emprestimo);
 }

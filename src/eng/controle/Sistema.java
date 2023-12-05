@@ -11,7 +11,6 @@ import eng.verificacao.Verificador;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Sistema {
@@ -94,7 +93,7 @@ public class Sistema {
             for (Emprestimo emprestimo : pegaEmprestimosPorUsuario(usuario)) {
                 System.out.println("Título do Livro: " + emprestimo.getLivro().getTitulo());
                 System.out.println("Data do Empréstimo: " + emprestimo.getDataAlugado());
-                System.out.println("Status do Empréstimo: " + (emprestimo.isFinalizado() ? "Finalizado" : "Em Curso"));
+                System.out.println("Status do Empréstimo: " + (emprestimo.isFinalizado() ? "Finalizado em: " + emprestimo.getDataEntregue() : "Em Curso"));
 
                 if (emprestimo.isFinalizado()) {
                     System.out.println("Data de Devolução: " + emprestimo.getDataDevolucao());
@@ -232,16 +231,6 @@ public class Sistema {
         this.reservas.remove(reserva);
         reserva.getLivro().removerReserva();
         reserva.getUsuario().removeReserva();
-    }
-
-    private ArrayList<Emprestimo> pegaEmprestimosPorLivro(Livro livro) {
-        ArrayList<Emprestimo> emprestimosDoLivro = new ArrayList<>();
-        for (Emprestimo emprestimo : this.emprestimos) {
-            if (emprestimo.getLivro().getCodigo().equals(livro.getCodigo())) {
-                emprestimosDoLivro.add(emprestimo);
-            }
-        }
-        return emprestimosDoLivro;
     }
 
     private ArrayList<Reserva> pegaReservasPorLivro(Livro livro) {

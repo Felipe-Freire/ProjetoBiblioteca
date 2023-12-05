@@ -8,19 +8,6 @@ import eng.usuario.Usuario;
 import java.util.ArrayList;
 
 public class Verificador {
-    public static boolean verificaUsuarioELivro(Usuario usuario, Livro livro) {
-        return verificarUsuario(usuario) && verificarLivro(livro);
-    }
-
-    public static boolean verificarUsuario(Usuario usuario) {
-        return usuario != null;
-    }
-
-    public static boolean verificarLivro(Livro livro) {
-        return livro != null;
-    }
-
-
     public static boolean verificaReserva(Usuario usuario, ArrayList<Reserva> reservas) {
         for (Reserva reserva : reservas) {
             if (reserva.getUsuario().equals(usuario)) {
