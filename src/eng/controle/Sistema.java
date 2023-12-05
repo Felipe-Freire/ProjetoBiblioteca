@@ -123,25 +123,30 @@ public class Sistema {
     }
 
     public void devolverLivro(String codigoUsuario, String codigoLivro) throws ErroDeNegocio {
+
         Usuario usuario = pegarUsuarioPorCodigo(codigoUsuario);
         Livro livro = pegarLivroPorCodigo(codigoLivro);
 
-        Emprestimo emprestimoEncontrado = null;
+        if (usuario != null && livro != null){
+            Emprestimo emprestimoEncontrado = null;
 
-        for (Emprestimo emprestimo : this.emprestimos) {
-            if (emprestimo.getUsuario().equals(usuario) && emprestimo.getLivro().equals(livro)) {
-                emprestimoEncontrado = emprestimo;
-                break;
+            for (Emprestimo emprestimo : this.emprestimos) {
+                if (emprestimo.getUsuario().equals(usuario) && emprestimo.getLivro().equals(livro)) {
+                    emprestimoEncontrado = emprestimo;
+                    break;
+                }
+            }
+
+            if (emprestimoEncontrado != null) {
+                removeEmprestimo(emprestimoEncontrado);
+                System.out.println("Devolução com sucesso para: Usuario - " + usuario.getNome() + " e Livro - " + livro.getTitulo());
+            } else {
+                throw new ErroDeNegocio("Erro: Empréstimo não encontrado para Usuario - " + usuario.getNome() + " e Livro - " + livro.getTitulo());
             }
         }
-
-        if (emprestimoEncontrado != null) {
-            removeEmprestimo(emprestimoEncontrado);
-            System.out.println("Devolução com sucesso para: Usuario - " + usuario.getNome() + " e Livro - " + livro.getTitulo());
-        } else {
-            throw new ErroDeNegocio("Erro: Empréstimo não encontrado para Usuario - " + usuario.getNome() + " e Livro - " + livro.getTitulo());
+        else {
+            throw new ErroDeNegocio("Usuario ou livro não encontrado.");
         }
-
     }
 
     public void emprestarLivro(String codigoUsuario, String codigoLivro) {
@@ -175,6 +180,9 @@ public class Sistema {
     public void reservarLivro(String codigoUsuario, String codigoLivro) throws ErroDeNegocio {
         Usuario usuario = pegarUsuarioPorCodigo(codigoUsuario);
         Livro livro = pegarLivroPorCodigo(codigoLivro);
+
+        System.out.println(codigoLivro);
+        System.out.println(codigoUsuario);
 
         if (Verificador.verificaLiberdadeDeReserva(usuario)) {
             adicionaReserva(usuario, livro);

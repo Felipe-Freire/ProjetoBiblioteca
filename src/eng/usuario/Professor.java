@@ -14,18 +14,13 @@ public class Professor extends Usuario implements IObservador{
     }
 
     @Override
-    public void observa(IObservavel observavel) {
-        observavel.adicionarObservador(this);
+    public void observa() {
+        this.notificacoes++;
     }
 
     @Override
     public void removeObservador(IObservavel observavel) {
         observavel.removerObservador(this);
-    }
-
-    @Override
-    public void notificaObservador(IObservavel observavel) {
-        notificacoes++;
     }
 
     @Override

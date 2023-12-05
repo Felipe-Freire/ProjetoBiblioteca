@@ -119,7 +119,7 @@ public class Livro implements IObservavel, IReservavel, IEmprestavel {
     @Override
     public void notificarObservadores() {
         for (IObservador observador : observadores) {
-            observador.observa(this);
+            observador.observa();
         }
     }
 

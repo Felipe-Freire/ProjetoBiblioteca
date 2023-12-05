@@ -26,7 +26,9 @@ public class Comando {
         Scanner teclado = new Scanner(System.in);
         String entrada;
         String comando;
-        String parametros;
+        String param1 = null;
+        String param2 = null;
+        String[] parametrosArray = new String[0];
 
         while (true) {  // Loop infinito até que seja chamado o comando de saída
             System.out.print("Digite um comando: ");
@@ -34,14 +36,22 @@ public class Comando {
 
             comando = entrada.substring(0, 3);
             try {
-                parametros = entrada.substring(4);
-            } catch (Exception e) {
-                parametros = "vazio";
+                parametrosArray = entrada.substring(4).split(" ");
+
+                // Tratamento para 1 ou 2 parâmetros
+                if (parametrosArray.length == 1) {
+                    param1 = parametrosArray[0];
+                    param2 = "";  // Define um valor padrão para o segundo parâmetro (pode ser vazio ou null)
+                } else if (parametrosArray.length == 2) {
+                    param1 = parametrosArray[0];
+                    param2 = parametrosArray[1];
+                }
+            } catch (Exception ignored) {;
             }
 
             IComando c = comandos.get(comando);
             if (c != null) {
-                c.executar(parametros);
+                c.executar(param1, param2);
                 System.out.println();
             } else {
                 System.out.println("Comando inválido. Tente novamente.");
