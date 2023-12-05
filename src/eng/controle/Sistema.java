@@ -34,6 +34,10 @@ public class Sistema {
         Usuario usuario = pegarUsuarioPorCodigo(codigoUsuario);
         Livro livro = pegarLivroPorCodigo(codigoLivro);
 
+        if (usuario == null || livro == null) {
+            throw new ErroDeNegocio("Erro: usuario ou livro não encontrado.");
+        }
+
         if (usuario instanceof IObservador) {
             livro.adicionarObservador((IObservador) usuario);
         } else {
@@ -110,8 +114,12 @@ public class Sistema {
         }
     }
 
-    public void consultarProfessor(String codigoUsuario) {
+    public void consultarProfessor(String codigoUsuario) throws ErroDeNegocio {
         Usuario usuario = pegarUsuarioPorCodigo(codigoUsuario);
+
+        if (usuario == null) {
+            throw new ErroDeNegocio("Erro: usuario não encontrado.");
+        }
 
         if (usuario instanceof IObservador) {
             int notificacoes = ((IObservador) usuario).getNotificacoes();
@@ -149,9 +157,13 @@ public class Sistema {
         }
     }
 
-    public void emprestarLivro(String codigoUsuario, String codigoLivro) {
+    public void emprestarLivro(String codigoUsuario, String codigoLivro) throws ErroDeNegocio {
         Usuario usuario = pegarUsuarioPorCodigo(codigoUsuario);
         Livro livro = pegarLivroPorCodigo(codigoLivro);
+
+        if (usuario == null || livro == null) {
+            throw new ErroDeNegocio("Erro: usuario ou livro não encontrado.");
+        }
 
         try {
             if (usuario.getEstrategiaEmprestimo().aplicarEstrategia(usuario, livro, this.reservas, this.emprestimos)) {
@@ -181,8 +193,9 @@ public class Sistema {
         Usuario usuario = pegarUsuarioPorCodigo(codigoUsuario);
         Livro livro = pegarLivroPorCodigo(codigoLivro);
 
-        System.out.println(codigoLivro);
-        System.out.println(codigoUsuario);
+        if (usuario == null || livro == null) {
+            throw new ErroDeNegocio("Erro: usuario ou livro não encontrado.");
+        }
 
         if (Verificador.verificaLiberdadeDeReserva(usuario)) {
             adicionaReserva(usuario, livro);

@@ -26,14 +26,11 @@ public class EstrategiaEmprestimoAluno implements IEstrategiaEmprestimo{
             throw new ErroDeNegocio("Usuário atingiu a quantidade máxima de empréstimos permitida.");
         }
 
-        // (iv) Verifica quantidade de reservas em relação à disponibilidade de exemplares
-        if (!(livro.getQuantidadeReservas() < livro.getQuantidadeDisponivel())) {
-            throw new ErroDeNegocio("Não há exemplares disponíveis para atender às reservas.");
-        }
-
-        // (v) Verifica
-        if (!(Verificador.verificaReserva(usuario, reservas) && livro.getQuantidadeReservas() >= livro.getQuantidadeTotal())) {
-            throw new ErroDeNegocio("Reserva indisponível para o usuário ou quantidade de reservas excedida.");
+        if (!(Verificador.verificaReserva(usuario, reservas))) {
+            // (iv) Verifica quantidade de reservas em relação à disponibilidade de exemplares
+            if (!(livro.getQuantidadeReservas() < livro.getQuantidadeDisponivel())) {
+                throw new ErroDeNegocio("Não há exemplares disponíveis para atender às reservas.");
+            }
         }
 
         // (vi) Verifica se o usuario ja tem o livro

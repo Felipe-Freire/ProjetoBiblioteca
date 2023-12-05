@@ -30,7 +30,7 @@ public class Verificador {
 
     public static boolean verificaEmprestimo(Usuario usuario, Livro livro, ArrayList<Emprestimo> emprestimos) {
         for (Emprestimo emprestimo : emprestimos) {
-            if (emprestimo.getUsuario().equals(usuario) && emprestimo.getLivro().equals(livro)) {
+            if (emprestimo.getUsuario().equals(usuario) && emprestimo.getLivro().equals(livro) && !emprestimo.isFinalizado()) {
                 return true;  // Já existe um empréstimo para o usuário e livro específicos
             }
         }

@@ -125,7 +125,7 @@ public class Livro implements IObservavel, IReservavel, IEmprestavel {
 
     @Override
     public void realizaEmprestimo(Emprestimo emprestimo) {
-        setQuantidadeDisponivel(getQuantidadeTotal() - 1);
+        this.quantidadeDisponivel--;
         for (Map.Entry<String, Emprestimo> entry : exemplares.entrySet()) {
             if (entry.getValue() == null) {
                 entry.setValue(emprestimo);
@@ -136,7 +136,7 @@ public class Livro implements IObservavel, IReservavel, IEmprestavel {
 
     @Override
     public void removerEmprestimo(Emprestimo emprestimo) {
-        setQuantidadeDisponivel(getQuantidadeDisponivel() + 1);
+        this.quantidadeDisponivel++;
         // Apenas desvincule o primeiro empréstimo encontrado
         exemplares.entrySet().stream().filter(entry -> entry.getValue() == emprestimo).findFirst().ifPresent(entry -> entry.setValue(null));
     }
