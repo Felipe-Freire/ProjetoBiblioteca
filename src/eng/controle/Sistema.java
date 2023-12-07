@@ -39,6 +39,7 @@ public class Sistema {
         }
 
         if (usuario instanceof IObservador) {
+            System.out.println("Usuario " + usuario.getNome() + "agora observa o livro " + livro.getTitulo());
             livro.adicionarObservador((IObservador) usuario);
         } else {
             // Trate o caso em que o usuário não implementa a interface IObservador
@@ -51,6 +52,7 @@ public class Sistema {
         Livro livro = pegarLivroPorCodigo(codigoLivro);
 
         if (livro != null) {
+            System.out.println("========================");
             System.out.println("Informações do Livro:");
             System.out.println("Título: " + livro.getTitulo());
 
@@ -65,7 +67,7 @@ public class Sistema {
                     System.out.println("Nome do Usuário: " + reserva.getUsuario().getNome());
                 }
             }
-
+            System.out.println("---");
             // (iii) Detalhes dos exemplares
             System.out.println("Detalhes dos Exemplares:");
 
@@ -84,6 +86,7 @@ public class Sistema {
                     System.out.println("Status: Disponível");
                 }
             }
+            System.out.println("========================");
         } else {
             throw new ErroDeNegocio("Livro não encontrado.");
         }
@@ -93,6 +96,7 @@ public class Sistema {
         Usuario usuario = pegarUsuarioPorCodigo(codigoUsuario);
 
         if (usuario != null) {
+            System.out.println("========================");
             System.out.println("Lista de Empréstimos do Usuário:");
             for (Emprestimo emprestimo : pegaEmprestimosPorUsuario(usuario)) {
                 System.out.println("Título do Livro: " + emprestimo.getLivro().getTitulo());
@@ -103,12 +107,15 @@ public class Sistema {
                     System.out.println("Data de Devolução: " + emprestimo.getDataDevolucao());
                 }
             }
+            System.out.println("---");
 
             System.out.println("Lista de Reservas do Usuário:");
             for (Reserva reserva : pegaReservasPorUsuario(usuario)) {
                 System.out.println("Título do Livro Reservado: " + reserva.getLivro().getTitulo());
                 System.out.println("Data da Solicitação da Reserva: " + reserva.getDataReserva());
             }
+
+            System.out.println("========================");
         } else {
             System.out.println("Usuário não encontrado.");
         }
@@ -199,6 +206,7 @@ public class Sistema {
 
         if (Verificador.verificaLiberdadeDeReserva(usuario)) {
             adicionaReserva(usuario, livro);
+            System.out.println("Reserva bem sucedida para: Usuario - " + usuario.getNome() + " e Livro - " + livro.getTitulo());
         } else {
             throw new ErroDeNegocio("Erro: Limite de reserva alcançado para Usuario - " + usuario.getNome() + " e Livro - " + livro.getTitulo());
         }
